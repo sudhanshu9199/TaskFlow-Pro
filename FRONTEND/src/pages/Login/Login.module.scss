@@ -1,0 +1,129 @@
+.loginContainer {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(
+    143deg,
+    rgba(67, 124, 169, 1) 4%,
+    rgba(241, 239, 224, 1) 38%,
+    rgba(234, 226, 201, 1) 60%,
+    rgba(201, 160, 81, 1) 95%
+  );
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 50%;
+
+  a {
+    text-decoration: none;
+    color: rgb(0, 0, 179);
+    font-weight: 600;
+  }
+
+  .fullContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  img {
+    width: 6rem;
+    margin-bottom: 1.7rem;
+  }
+
+  h2 {
+    font-size: 2.2rem;
+    margin-bottom: 1.5rem;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .inputs {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      border: 2px solid rgb(161, 121, 3);
+      margin-bottom: 1rem;
+      padding: 0.7rem;
+      border-radius: 5rem;
+
+      .icons {
+        width: 1.5rem;
+        opacity: 0.6;
+      }
+      input {
+        background: transparent;
+        outline: none;
+        border: none;
+        font-size: 1.2rem;
+      }
+    }
+
+    button {
+      margin: 0.5rem 0 1rem 0;
+      border: none;
+      font-size: 1.5rem;
+      padding: 0.66rem 2.5rem;
+      border-radius: 2rem;
+      width: 90%;
+      background: linear-gradient(
+        143deg,
+        rgba(71, 123, 166, 1) 5%,
+        rgba(214, 169, 88, 1) 94%
+      );
+      color: white;
+      filter: drop-shadow(2px 6px 5px rgba(77, 77, 77, 0.626));
+
+      &:active {
+        transform: scale(0.95);
+      }
+    }
+  }
+
+  .FingerprintPattern {
+    margin-top: 3rem;
+    width: 3.3rem;
+    height: 3.3rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .loginContainer {
+    background-image: url("../../assets/login_BG.jpg");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    padding: 10%;
+    align-items: flex-start;
+
+    .fullContainer {
+        img {
+    width: 8rem;
+  }
+  h2 {
+    font-size: 2.7rem;
+  }
+
+  form {
+    .inputs {
+        .icons {
+        width: 2rem;
+        height: 2rem;
+        opacity: 0.6;
+      }
+      input {
+        background: transparent;
+        outline: none;
+        border: none;
+        font-size: 1.5rem;
+      }
+    }
+  }
+    }
+
+    .FingerprintPattern {
+        display: none;
+    }
+  }
+}
