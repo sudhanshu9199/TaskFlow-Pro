@@ -1,0 +1,307 @@
+.dashboardContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: 1rem;
+  position: relative;
+  overflow-y: hidden;
+}
+.dashboardContainer ul {
+  list-style: none;
+}
+.dashboardContainer .mobileCreateTaskBtn {
+  position: absolute;
+  right: 8%;
+  bottom: 10%;
+  background: #467c92;
+  color: whitesmoke;
+  padding: 1rem;
+  border-radius: 50%;
+  filter: drop-shadow(1px 2px 5px black);
+}
+.dashboardContainer .mobileCreateTaskBtn:active {
+  transform: scale(0.95);
+}
+.dashboardContainer .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboardContainer .header h2 {
+  font-size: 1.8rem;
+}
+.dashboardContainer .header .desktopFeature {
+  display: none;
+}
+.dashboardContainer .header .fullProfile .profile {
+  border-radius: 50%;
+  width: 2.6rem;
+  height: 2.6rem;
+  overflow: hidden;
+}
+.dashboardContainer .header .fullProfile .profile img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+  scale: 1.14;
+}
+.dashboardContainer .header .fullProfile .texts {
+  display: none;
+}
+.dashboardContainer .taskSummary {
+  margin-left: -0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.65rem 0;
+}
+.dashboardContainer .taskSummary .allTasks {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.5rem;
+  width: 24.5vw;
+  height: 7rem;
+  justify-content: space-between;
+  background: #ecf8ff;
+}
+.dashboardContainer .taskSummary .allTasks .icons {
+  border-radius: 0.3rem;
+  padding: 0.3rem;
+  width: 2.1rem;
+  height: 2.1rem;
+  margin-bottom: 0.3rem;
+}
+.dashboardContainer .taskSummary .allTasks .listIcon {
+  color: rgb(0, 51, 128);
+  background: rgba(61, 171, 249, 0.3921568627);
+}
+.dashboardContainer .taskSummary .allTasks .checkIcon {
+  color: #4d8362;
+  background: #cfe4d3;
+}
+.dashboardContainer .taskSummary .allTasks .clockIcon {
+  color: rgb(151, 139, 3);
+  background: rgba(210, 193, 2, 0.3254901961);
+}
+.dashboardContainer .taskSummary .allTasks .flameIcon {
+  background: #ebd7d0;
+  color: #a45559;
+}
+.dashboardContainer .taskSummary .allTasks .name {
+  text-align: center;
+}
+.dashboardContainer .filters {
+  margin: 0.6rem 0;
+}
+.dashboardContainer .filters ul {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.dashboardContainer .filters ul li {
+  border: 1.5px solid gray;
+  padding: 0.45rem 0.55rem;
+  border-radius: 1rem;
+}
+.dashboardContainer .filters ul li:active {
+  background: #4b7a92;
+  color: white;
+}
+.dashboardContainer .tasksListDisplay {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+  overflow-y: auto;
+  height: calc(100vh - 250px);
+  padding-right: 0.5rem;
+}
+.dashboardContainer .tasksListDisplay .taskNote {
+  border: 2px solid red;
+  border-radius: 0.6rem;
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: 0.65rem;
+}
+.dashboardContainer .tasksListDisplay .taskNote .leftText p:nth-child(1) {
+  margin-bottom: 0.65rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+}
+.dashboardContainer .tasksListDisplay .taskNote .leftText p:nth-child(2) {
+  margin-bottom: 0.38rem;
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+.dashboardContainer .tasksListDisplay .taskNote .leftText p:nth-child(3) {
+  background: rgba(248, 0, 0, 0.714);
+  width: -moz-fit-content;
+  width: fit-content;
+  color: white;
+  padding: 0.45rem 0.9rem;
+  border-radius: 1rem;
+}
+.dashboardContainer .tasksListDisplay .taskNote .right {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.dashboardContainer .tasksListDisplay .taskNote .right .penIcon {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: rgb(8, 8, 179);
+}
+.dashboardContainer .tasksListDisplay .taskNote .right .trash {
+  width: 1.2rem;
+  height: 1.2rem;
+  color: rgb(162, 10, 10);
+}
+
+@media (min-width: 1024px) {
+  .dashboardContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+  .dashboardContainer .mobileCreateTaskBtn {
+    display: none;
+  }
+  .dashboardContainer .header {
+    height: 96.5vh;
+    width: 20%;
+    border-right: 2px solid red;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1.5rem;
+    justify-content: flex-start;
+    position: relative;
+  }
+  .dashboardContainer .header h2 {
+    font-size: 2.6vw;
+    margin-bottom: 0.9rem;
+  }
+  .dashboardContainer .header .desktopFeature {
+    display: inline-block;
+  }
+  .dashboardContainer .header .desktopFeature .DeskTopCreateTaskBtn {
+    background: #4c7e92;
+    width: 14vw;
+    text-align: center;
+    padding: 1.2vw 0;
+    border-radius: 0.5rem;
+    color: white;
+    cursor: pointer;
+    letter-spacing: 0.15rem;
+    margin-bottom: 1rem;
+  }
+  .dashboardContainer .header .desktopFeature .DeskTopCreateTaskBtn:active {
+    transform: scale(0.95);
+  }
+  .dashboardContainer .header .desktopFeature .DeskTopFilters ul li {
+    padding: 1rem 0.8rem;
+    display: flex;
+    gap: 0.6rem;
+    align-items: center;
+    cursor: default;
+  }
+  .dashboardContainer .header .desktopFeature .DeskTopFilters ul li .icons {
+    color: #4c7e92;
+  }
+  .dashboardContainer .header .desktopFeature .DeskTopFilters ul li:hover {
+    background: rgba(73, 165, 241, 0.4431372549);
+    border-radius: 0.4rem;
+  }
+  .dashboardContainer .header .fullProfile {
+    position: absolute;
+    bottom: 5%;
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+  }
+  .dashboardContainer .header .fullProfile .profile {
+    width: 2.6rem;
+    height: 2.6rem;
+  }
+  .dashboardContainer .header .fullProfile .texts {
+    display: block;
+  }
+  .dashboardContainer .header .fullProfile .texts .name {
+    font-size: 1.1rem;
+    font-weight: 600;
+  }
+  .dashboardContainer .header .fullProfile .texts .username {
+    font-size: 0.95rem;
+    font-weight: 500;
+    opacity: 0.9;
+  }
+  .dashboardContainer .belowAllContainers {
+    width: 80%;
+  }
+  .dashboardContainer .belowAllContainers .taskSummary {
+    margin-bottom: 1rem;
+  }
+  .dashboardContainer .belowAllContainers .taskSummary .allTasks {
+    padding: 0.65rem 0;
+    height: 11rem;
+    border-radius: 0.5rem;
+  }
+  .dashboardContainer .belowAllContainers .taskSummary .allTasks .icons {
+    border-radius: 0.3rem;
+    padding: 0.3rem;
+    width: 3.3rem;
+    height: 3.3rem;
+  }
+  .dashboardContainer .belowAllContainers .taskSummary .allTasks .name {
+    font-size: 1.7vw;
+    font-weight: 500;
+  }
+  .dashboardContainer .belowAllContainers .taskSummary .allTasks .number {
+    font-size: 1.4vw;
+    font-weight: 600;
+  }
+  .dashboardContainer .belowAllContainers .filters {
+    display: none;
+  }
+  .dashboardContainer .belowAllContainers .tasksListDisplay {
+    gap: 1.3rem;
+  }
+  .dashboardContainer .belowAllContainers .tasksListDisplay .taskNote {
+    border: 2px solid red;
+    border-radius: 0.6rem;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    padding: 0.65rem 1rem;
+  }
+  .dashboardContainer .belowAllContainers .tasksListDisplay .taskNote .leftText p:nth-child(1) {
+    font-size: 1.8vw;
+  }
+  .dashboardContainer .belowAllContainers .tasksListDisplay .taskNote .leftText p:nth-child(3) {
+    background: rgba(248, 0, 0, 0.714);
+    width: -moz-fit-content;
+    width: fit-content;
+    color: white;
+    padding: 0.45rem 0.9rem;
+    border-radius: 1rem;
+  }
+  .dashboardContainer .belowAllContainers .tasksListDisplay .taskNote .right {
+    gap: 1.5rem;
+  }
+  .dashboardContainer .belowAllContainers .tasksListDisplay .taskNote .right .penIcon {
+    width: 1.8rem;
+    height: 1.8rem;
+    color: rgb(8, 8, 179);
+  }
+  .dashboardContainer .belowAllContainers .tasksListDisplay .taskNote .right .penIcon:active {
+    transform: scale(0.95);
+  }
+  .dashboardContainer .belowAllContainers .tasksListDisplay .taskNote .right .trash {
+    width: 1.8rem;
+    height: 1.8rem;
+    color: rgb(162, 10, 10);
+  }
+  .dashboardContainer .belowAllContainers .tasksListDisplay .taskNote .right .trash:active {
+    transform: scale(0.95);
+  }
+}/*# sourceMappingURL=MainPage.module.css.map */

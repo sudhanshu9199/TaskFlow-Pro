@@ -1,0 +1,357 @@
+.dashboardContainer {
+  width: 100%;
+  min-height: 100vh;
+  padding: 1rem;
+  position: relative;
+  overflow-y: hidden;
+
+  ul {
+    list-style: none;
+  }
+
+  .mobileCreateTaskBtn {
+    position: absolute;
+    right: 8%;
+    bottom: 10%;
+    background: #467c92;
+    color: whitesmoke;
+    padding: 1rem;
+    border-radius: 50%;
+    filter: drop-shadow(1px 2px 5px black);
+
+    &:active {
+      transform: scale(0.95);
+    }
+  }
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    h2 {
+      font-size: 1.8rem;
+    }
+    .desktopFeature {
+      display: none;
+    }
+
+    .fullProfile {
+      .profile {
+        border-radius: 50%;
+        width: 2.6rem;
+        height: 2.6rem;
+        overflow: hidden;
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          scale: 1.14;
+        }
+      }
+      .texts {
+        display: none;
+      }
+    }
+  }
+
+  .taskSummary {
+    // border: 2px solid green;
+    margin-left: -0.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.65rem 0;
+
+    .allTasks {
+      //   border: 2px solid red;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 0.5rem;
+      width: 24.5vw;
+      height: 7rem;
+      justify-content: space-between;
+      background: #ecf8ff;
+
+      .icons {
+        // border: 2px solid green;
+        border-radius: 0.3rem;
+        padding: 0.3rem;
+        width: 2.1rem;
+        height: 2.1rem;
+        margin-bottom: 0.3rem;
+      }
+
+      .listIcon {
+        color: rgb(0, 51, 128);
+        background: #3dabf964;
+      }
+      .checkIcon {
+        color: #4d8362;
+        background: #cfe4d3;
+      }
+      .clockIcon {
+        color: rgb(151, 139, 3);
+        background: #d2c10253;
+      }
+      .flameIcon {
+        background: #ebd7d0;
+        color: #a45559;
+      }
+
+      .name {
+        text-align: center;
+      }
+    }
+  }
+
+  .filters {
+    margin: 0.6rem 0;
+    ul {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      li {
+        border: 1.5px solid gray;
+        padding: 0.45rem 0.55rem;
+        border-radius: 1rem;
+
+        &:active {
+          background: #4b7a92;
+          color: white;
+        }
+      }
+    }
+  }
+
+  .tasksListDisplay {
+    display: flex;
+    flex-direction: column;
+    gap: 0.9rem;
+    overflow-y: auto;
+    height: calc(
+      100vh - 250px
+    ); // Adjust this value based on your header + summary height
+    padding-right: 0.5rem;
+    .taskNote {
+      border: 2px solid red;
+      border-radius: 0.6rem;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      padding: 0.65rem;
+
+      .leftText {
+        p:nth-child(1) {
+          margin-bottom: 0.65rem;
+          font-weight: 600;
+          font-size: 1.1rem;
+        }
+        p:nth-child(2) {
+          margin-bottom: 0.38rem;
+          font-weight: 500;
+          font-size: 0.95rem;
+        }
+        p:nth-child(3) {
+          background: rgba(248, 0, 0, 0.714);
+          width: fit-content;
+          color: white;
+          padding: 0.45rem 0.9rem;
+          border-radius: 1rem;
+        }
+      }
+
+      .right {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+
+        .penIcon {
+          width: 1.2rem;
+          height: 1.2rem;
+          color: rgb(8, 8, 179);
+        }
+        .trash {
+          width: 1.2rem;
+          height: 1.2rem;
+          color: rgb(162, 10, 10);
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .dashboardContainer {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    .mobileCreateTaskBtn {
+      display: none;
+    }
+
+    .header {
+      height: 96.5vh;
+      width: 20%;
+      border-right: 2px solid red;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1.5rem;
+      justify-content: flex-start;
+      position: relative;
+
+      h2 {
+        font-size: 2.6vw;
+        margin-bottom: 0.9rem;
+      }
+      .desktopFeature {
+        display: inline-block;
+
+        .DeskTopCreateTaskBtn {
+          background: #4c7e92;
+          width: 14vw;
+          text-align: center;
+          padding: 1.2vw 0;
+          border-radius: 0.5rem;
+          color: white;
+          cursor: pointer;
+          letter-spacing: 0.15rem;
+          margin-bottom: 1rem;
+
+          &:active {
+            transform: scale(0.95);
+          }
+        }
+
+        .DeskTopFilters {
+          ul {
+            li {
+              padding: 1rem 0.8rem;
+              display: flex;
+              gap: 0.6rem;
+              align-items: center;
+              cursor: default;
+
+              .icons {
+                color: #4c7e92;
+              }
+
+              &:hover {
+                background: #49a5f171;
+                border-radius: 0.4rem;
+              }
+            }
+          }
+        }
+      }
+
+      .fullProfile {
+        position: absolute;
+        bottom: 5%;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        .profile {
+          width: 2.6rem;
+          height: 2.6rem;
+        }
+        .texts {
+            display: block;
+            
+            .name {
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+            .username {
+                font-size: 0.95rem;
+                font-weight: 500;
+                opacity: 0.90;
+            }
+        }
+      }
+    }
+
+    .belowAllContainers {
+      width: 80%;
+
+      .taskSummary {
+        margin-bottom: 1rem;
+
+        .allTasks {
+          padding: 0.65rem 0;
+          height: 11rem;
+          border-radius: 0.5rem;
+
+          .icons {
+            border-radius: 0.3rem;
+            padding: 0.3rem;
+            width: 3.3rem;
+            height: 3.3rem;
+          }
+
+          .name {
+            font-size: 1.7vw;
+            font-weight: 500;
+          }
+          .number {
+            font-size: 1.4vw;
+            font-weight: 600;
+          }
+        }
+      }
+      .filters {
+        display: none;
+      }
+
+      .tasksListDisplay {
+        gap: 1.3rem;
+        .taskNote {
+          border: 2px solid red;
+          border-radius: 0.6rem;
+          display: flex;
+          align-items: flex-start;
+          justify-content: space-between;
+          padding: 0.65rem 1rem;
+
+          .leftText {
+            p:nth-child(1) {
+              font-size: 1.8vw;
+            }
+            p:nth-child(3) {
+              background: rgba(248, 0, 0, 0.714);
+              width: fit-content;
+              color: white;
+              padding: 0.45rem 0.9rem;
+              border-radius: 1rem;
+            }
+          }
+
+          .right {
+            gap: 1.5rem;
+
+            .penIcon {
+              width: 1.8rem;
+              height: 1.8rem;
+              color: rgb(8, 8, 179);
+
+              &:active {
+                transform: scale(0.95);
+              }
+            }
+            .trash {
+              width: 1.8rem;
+              height: 1.8rem;
+              color: rgb(162, 10, 10);
+
+              &:active {
+                transform: scale(0.95);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
