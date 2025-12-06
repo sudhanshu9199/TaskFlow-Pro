@@ -11,6 +11,7 @@ import {
 import profileDP from "../../assets/profileDP.jpg";
 import { useState } from "react";
 import CreateTaskModal from "./CreateTaskModal/CreateTaskModal";
+// import EditTaskModal from "./EditTaskModal/EditTaskModal";
 
 const MainPage = () => {
   const [openModal, setopenModal] = useState(false);
@@ -155,13 +156,15 @@ const MainPage = () => {
           </div>
         </div>
       </div>
-      <CreateTaskModal open={openModal}
-    onCreate={() => {
-        console.log('Task created');
-        setopenModal(false);
-    }}
-    />
-    </div>    
+      <CreateTaskModal
+        open={openModal}
+        onClose={() => setopenModal(false)}
+        onCreate={() => {
+          console.log("Task created");
+          setopenModal(false);
+        }}
+      />
+    </div>
   );
 };
 

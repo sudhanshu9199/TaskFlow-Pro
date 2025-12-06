@@ -1,0 +1,140 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 200;
+  backdrop-filter: blur(2px);
+
+  .modal {
+    width: 92%;
+    max-width: 450px;
+    background: #fff;
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    animation: fadeIn 0.25s ease;
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+
+      h2 {
+        font-size: 20px;
+        font-weight: 600;
+      }
+
+      .closeBtn {
+        cursor: pointer;
+        display: none;
+      }
+    }
+
+    .label {
+      margin-top: 12px;
+      font-size: 4.3vw;
+      font-weight: 600;
+    }
+
+    .input,
+    .textarea,
+    .select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 1rem;
+      border: 1.8px solid #ddd;
+      outline: none;
+      font-size: 14px;
+      margin-bottom: 0.8rem;
+
+      &:focus {
+        border-color: #0531a8;
+      }
+    }
+
+    .textarea {
+      min-height: 80px;
+      resize: none;
+    }
+
+    .todo {
+      background: grey;
+      color: white;
+    }
+    .pending {
+      background: #d2a600;
+      color: white;
+    }
+    .completed {
+      background: green;
+      color: white;
+    }
+    .high {
+      background: red;
+      color: white;
+    }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+
+      .cancelBtn {
+        padding: 10px 16px;
+        border-radius: 8px;
+        border: 1px solid #aaa;
+        background: #f3f3f3;
+        font-size: 1.2rem;
+      }
+
+      .createBtn {
+        padding: 10px 16px;
+        border-radius: 8px;
+        background: #111;
+        color: white;
+        border: none;
+        font-size: 1.2rem;
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  }
+}
+
+@media (min-width: 1024px) {
+  .overlay {
+    .modal {
+      .header {
+        h2 {
+          font-size: 2rem;
+        }
+        .closeBtn {
+          display: inline-block;
+        }
+      }
+
+      .label {
+        font-size: 1.3vw;
+      }
+
+      .input,
+    .textarea,
+    .select {
+      border-radius: 8px;
+    }
+    }
+  }
+}

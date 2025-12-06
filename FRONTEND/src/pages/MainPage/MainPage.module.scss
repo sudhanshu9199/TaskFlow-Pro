@@ -195,7 +195,7 @@
     .header {
       height: 96.5vh;
       width: 20%;
-      border-right: 2px solid red;
+      border-right: 2px solid rgb(167, 167, 167);
       flex-direction: column;
       align-items: flex-start;
       padding: 1.5rem;
@@ -240,6 +240,7 @@
 
               &:hover {
                 background: #49a5f171;
+                // color: white;
                 border-radius: 0.4rem;
               }
             }
