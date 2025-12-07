@@ -9,15 +9,28 @@ import {
   Plus,
 } from "lucide-react";
 import profileDP from "../../assets/profileDP.jpg";
-import { useState } from "react";
+import useTasks from "../../Hooks/useTasks";
+import useModalControllers from "../../Hooks/useModalControllers";
+
 import CreateTaskModal from "./CreateTaskModal/CreateTaskModal";
 import EditTaskModal from "./EditTaskModal/EditTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal/DeleteTaskModal";
 
 const MainPage = () => {
-  const [openModal, setopenModal] = useState(false);
+  const {
+    openCreate,
+    setOpenCreate,
+    openEdit,
+    setOpenEdit,
+    editingTask,
+    openEditModal,
+    openDelete,
+    setOpenDelete,
+    deletingTask,
+    openDeleteModal,
+  } = useModalControllers();
 
-  const [tasks, settasks] = useState([
+  const [tasks, setTasks, updateTask, deleteTask] = useTasks([
     {
       id: "1",
       title: "Website Redesign",
@@ -32,37 +45,11 @@ const MainPage = () => {
     },
   ]);
 
-  const [editOpen, seteditOpen] = useState(false);
-  const [editingTask, seteditingTask] = useState(null);
-
-  const openEdit = (task) => {
-    seteditingTask(task);
-    seteditOpen(true);
-  };
-
-  const handleUpdate = (updated) => {
-    settasks((prev) =>
-      prev.map((t) => (t.id === updated.id ? { ...t, ...updated } : t))
-    );
-    console.log("Updated task:", updated);
-  };
-
-  const [deleteOpen, setdeleteOpen] = useState(false);
-  const [deleteTask, setdeleteTask] = useState(null);
-
-  const openDelete = (task) => {
-    setdeleteTask(task);
-    setdeleteOpen(true);
-  };
-  const handleDelete = (id) => {
-    settasks((prev) => prev.filter((t) => t.id !== id));
-    setdeleteOpen(false);
-  };
   return (
     <div className={style.dashboardContainer}>
       <p
         className={style.mobileCreateTaskBtn}
-        onClick={() => setopenModal(true)}
+        onClick={() => setOpenCreate(true)}
       >
         <Plus />
       </p>
@@ -71,7 +58,7 @@ const MainPage = () => {
         <div className={style.desktopFeature}>
           <p
             className={style.DeskTopCreateTaskBtn}
-            onClick={() => setopenModal(true)}
+            onClick={() => setOpenCreate(true)}
           >
             Create Task
           </p>
@@ -155,7 +142,7 @@ const MainPage = () => {
                 <button
                   className={style.iconBtn}
                   aria-label={`Edit ${task.title}`}
-                  onClick={() => openEdit(task)}
+                  onClick={() => openEditModal(task)}
                 >
                   <SquarePen className={style.penIcon} />
                 </button>
@@ -165,8 +152,7 @@ const MainPage = () => {
                 >
                   <Trash2
                     className={style.trash}
-                    aria-label={`Delete ${task.title}`}
-                    onClick={() => openDelete(task)}
+                    onClick={() => openDeleteModal(task)}
                   />
                 </button>
               </div>
@@ -186,24 +172,27 @@ const MainPage = () => {
         </div>
       </div>
       <CreateTaskModal
-        open={openModal}
-        onClose={() => setopenModal(false)}
-        onCreate={() => {
-          console.log("Task created");
-          setopenModal(false);
+        open={openCreate}
+        onClose={() => setOpenCreate(false)}
+        onCreate={(newTask) => {
+          setTasks(prev => [...prev, newTask]);
+          setOpenCreate(false);
         }}
       />
       <EditTaskModal
-        open={editOpen}
+        open={openEdit}
         task={editingTask}
-        onClose={() => seteditOpen(false)}
-        onUpdate={handleUpdate}
+        onClose={() => setOpenEdit(false)}
+        onUpdate={updateTask}
       />
       <DeleteTaskModal
-        open={deleteOpen}
-        task={deleteTask}
-        onCancel={() => setdeleteOpen(false)}
-        onDelete={handleDelete}
+        open={openDelete}
+        task={deletingTask}
+        onCancel={() => setOpenDelete(false)}
+        onDelete={id => {
+            deleteTask(id);
+            setOpenDelete(false);
+        }}
       />
     </div>
   );
