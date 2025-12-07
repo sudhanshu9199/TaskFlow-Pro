@@ -147,6 +147,10 @@
   align-items: center;
   gap: 1rem;
 }
+.dashboardContainer .tasksListDisplay .taskNote .right button {
+  background: none;
+  border: none;
+}
 .dashboardContainer .tasksListDisplay .taskNote .right .penIcon {
   width: 1.2rem;
   height: 1.2rem;

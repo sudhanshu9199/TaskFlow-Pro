@@ -11,10 +11,53 @@ import {
 import profileDP from "../../assets/profileDP.jpg";
 import { useState } from "react";
 import CreateTaskModal from "./CreateTaskModal/CreateTaskModal";
-// import EditTaskModal from "./EditTaskModal/EditTaskModal";
+import EditTaskModal from "./EditTaskModal/EditTaskModal";
+import DeleteTaskModal from "./DeleteTaskModal/DeleteTaskModal";
 
 const MainPage = () => {
   const [openModal, setopenModal] = useState(false);
+
+  const [tasks, settasks] = useState([
+    {
+      id: "1",
+      title: "Website Redesign",
+      desc: "Finalize homepage mockup.",
+      status: "high",
+    },
+    {
+      id: "2",
+      title: "Write docs",
+      desc: "Complete API docs v1",
+      status: "pending",
+    },
+  ]);
+
+  const [editOpen, seteditOpen] = useState(false);
+  const [editingTask, seteditingTask] = useState(null);
+
+  const openEdit = (task) => {
+    seteditingTask(task);
+    seteditOpen(true);
+  };
+
+  const handleUpdate = (updated) => {
+    settasks((prev) =>
+      prev.map((t) => (t.id === updated.id ? { ...t, ...updated } : t))
+    );
+    console.log("Updated task:", updated);
+  };
+
+  const [deleteOpen, setdeleteOpen] = useState(false);
+  const [deleteTask, setdeleteTask] = useState(null);
+
+  const openDelete = (task) => {
+    setdeleteTask(task);
+    setdeleteOpen(true);
+  };
+  const handleDelete = (id) => {
+    settasks((prev) => prev.filter((t) => t.id !== id));
+    setdeleteOpen(false);
+  };
   return (
     <div className={style.dashboardContainer}>
       <p
@@ -99,55 +142,41 @@ const MainPage = () => {
         </div>
 
         <div className={style.tasksListDisplay}>
+          {tasks.map((task) => (
+            <div key={task.id} className={style.taskNote}>
+              <div className={style.leftText}>
+                <p>{task.title}</p>
+                <p>{task.desc}</p>
+                <p className={style.priority}>
+                  {task.status === "high" ? "Hight Priority" : task.status}
+                </p>
+              </div>
+              <div className={style.right}>
+                <button
+                  className={style.iconBtn}
+                  aria-label={`Edit ${task.title}`}
+                  onClick={() => openEdit(task)}
+                >
+                  <SquarePen className={style.penIcon} />
+                </button>
+                <button
+                  className={style.iconBtn}
+                  aria-label={`Delete ${task.title}`}
+                >
+                  <Trash2
+                    className={style.trash}
+                    aria-label={`Delete ${task.title}`}
+                    onClick={() => openDelete(task)}
+                  />
+                </button>
+              </div>
+            </div>
+          ))}
           <div className={style.taskNote}>
             <div className={style.leftText}>
               <p>Website Redesign</p>
               <p>Finalize homepage mockup.</p>
               <p className={style.priority}>High Priority</p>
-            </div>
-            <div className={style.right}>
-              <SquarePen className={style.penIcon} />
-              <Trash2 className={style.trash} />
-            </div>
-          </div>
-          <div className={style.taskNote}>
-            <div className={style.leftText}>
-              <p>Client Meeting</p>
-              <p>Prepare Presentation slides.</p>
-              <p>Pending</p>
-            </div>
-            <div className={style.right}>
-              <SquarePen className={style.penIcon} />
-              <Trash2 className={style.trash} />
-            </div>
-          </div>
-          <div className={style.taskNote}>
-            <div className={style.leftText}>
-              <p>Client Meeting</p>
-              <p>Prepare Presentation slides.</p>
-              <p>Pending</p>
-            </div>
-            <div className={style.right}>
-              <SquarePen className={style.penIcon} />
-              <Trash2 className={style.trash} />
-            </div>
-          </div>
-          <div className={style.taskNote}>
-            <div className={style.leftText}>
-              <p>Client Meeting</p>
-              <p>Prepare Presentation slides.</p>
-              <p>Pending</p>
-            </div>
-            <div className={style.right}>
-              <SquarePen className={style.penIcon} />
-              <Trash2 className={style.trash} />
-            </div>
-          </div>
-          <div className={style.taskNote}>
-            <div className={style.leftText}>
-              <p>Client Meeting</p>
-              <p>Prepare Presentation slides.</p>
-              <p>Pending</p>
             </div>
             <div className={style.right}>
               <SquarePen className={style.penIcon} />
@@ -163,6 +192,18 @@ const MainPage = () => {
           console.log("Task created");
           setopenModal(false);
         }}
+      />
+      <EditTaskModal
+        open={editOpen}
+        task={editingTask}
+        onClose={() => seteditOpen(false)}
+        onUpdate={handleUpdate}
+      />
+      <DeleteTaskModal
+        open={deleteOpen}
+        task={deleteTask}
+        onCancel={() => setdeleteOpen(false)}
+        onDelete={handleDelete}
       />
     </div>
   );
