@@ -1,9 +1,9 @@
 import { Route, Routes } from 'react-router';
 import { lazy } from 'react';
-import Profile from '../Profile/Profile';
 const MainPage = lazy(() => import("../MainPage/MainPage"))
 const Login = lazy(() => import("../Login/Login"))
 const Register = lazy(() => import("../Register/Register"))
+const Profile = lazy(() => import("../Profile/Profile"))
 const MainRouter = () => {
   return (
     <Routes>

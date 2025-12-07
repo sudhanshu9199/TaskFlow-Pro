@@ -72,7 +72,6 @@ const EditTaskModal = ({ open, onClose, task = {}, onUpdate }) => {
 
   if (!open) return null;
 
-  //   return <div>EditTaskModal</div>;
   return ReactDOM.createPortal(
     <div
       className={style.backdrop}

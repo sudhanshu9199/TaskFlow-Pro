@@ -1,0 +1,35 @@
+.profileContainer {
+  width: 100%;
+  height: 100vh;
+  padding: 0.5rem;
+}
+.profileContainer .header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.profileContainer .header p {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+.profileContainer .profileSummary {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 1rem 0;
+}
+.profileContainer .profileSummary img {
+  width: 7rem;
+  height: 7rem;
+  border: 2px solid red;
+  border-radius: 50%;
+  margin-bottom: 0.45rem;
+}
+.profileContainer .profileSummary .name {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+.profileContainer .profileSummary .username {
+  font-size: 1rem;
+  opacity: 0.9;
+}/*# sourceMappingURL=Profile.module.css.map */

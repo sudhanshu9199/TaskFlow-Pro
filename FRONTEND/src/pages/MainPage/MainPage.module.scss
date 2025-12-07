@@ -5,6 +5,11 @@
   position: relative;
   overflow-y: hidden;
 
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
   ul {
     list-style: none;
   }
@@ -37,7 +42,7 @@
     }
 
     .fullProfile {
-    // border: 2px solid green;
+      // border: 2px solid green;
       .profile {
         border-radius: 50%;
         width: 2.6rem;
@@ -136,12 +141,28 @@
     ); // Adjust this value based on your header + summary height
     padding-right: 0.5rem;
     .taskNote {
-      border: 2px solid red;
+        border: 2px solid rgb(255, 0, 0);
       border-radius: 0.6rem;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       padding: 0.65rem;
+
+      &.high {
+        border-color: #e14b4b;
+      }
+
+      &.pending {
+        border-color: #f6c84c;
+      }
+
+      &.completed {
+        border-color: #44c767;
+      }
+
+      &.todo {
+        border-color: #9aa0a6;
+      }
 
       .leftText {
         p:nth-child(1) {
@@ -155,11 +176,31 @@
           font-size: 0.95rem;
         }
         p:nth-child(3) {
-          background: rgba(248, 0, 0, 0.714);
           width: fit-content;
           color: white;
           padding: 0.45rem 0.9rem;
           border-radius: 1rem;
+        }
+        .priority {
+          &.high {
+            border-color: #e14b4b;
+            background: rgb(225, 75, 75);
+          }
+
+          &.pending {
+            border-color: #f6c84c;
+            background: rgb(246, 201, 76);
+          }
+
+          &.completed {
+            border-color: #44c767;
+            background: rgb(68, 199, 103);
+          }
+
+          &.todo {
+            border-color: #9aa0a6;
+            background: rgb(154, 160, 166);
+          }
         }
       }
 
@@ -314,7 +355,7 @@
       .tasksListDisplay {
         gap: 1.3rem;
         .taskNote {
-          border: 2px solid red;
+          //   border: 2px solid red;
           border-radius: 0.6rem;
           display: flex;
           align-items: flex-start;
@@ -326,7 +367,7 @@
               font-size: 1.8vw;
             }
             p:nth-child(3) {
-              background: rgba(248, 0, 0, 0.714);
+              //   background: rgba(248, 0, 0, 0.714);
               width: fit-content;
               color: white;
               padding: 0.45rem 0.9rem;
@@ -338,8 +379,8 @@
             gap: 1.5rem;
 
             .penIcon {
-              width: 1.8rem;
-              height: 1.8rem;
+              width: 1.6rem;
+              height: 1.6rem;
               color: rgb(8, 8, 179);
 
               &:active {
@@ -347,8 +388,8 @@
               }
             }
             .trash {
-              width: 1.8rem;
-              height: 1.8rem;
+              width: 1.6rem;
+              height: 1.6rem;
               color: rgb(162, 10, 10);
 
               &:active {

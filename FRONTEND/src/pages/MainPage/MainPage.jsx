@@ -9,6 +9,7 @@ import {
   Plus,
 } from "lucide-react";
 import profileDP from "../../assets/profileDP.jpg";
+import { Link } from 'react-router';
 import useTasks from "../../Hooks/useTasks";
 import useModalControllers from "../../Hooks/useModalControllers";
 
@@ -41,7 +42,19 @@ const MainPage = () => {
       id: "2",
       title: "Write docs",
       desc: "Complete API docs v1",
+      status: "completed",
+    },
+    {
+      id: "3",
+      title: "Day 8",
+      desc: "1. Complete the todo project. 2. Drink water. 3. Listen god songs. 4. Help to mother",
       status: "pending",
+    },
+    {
+      id: "4",
+      title: "Day 7",
+      desc: "1. Project Dashboard UI almost done.",
+      status: "todo",
     },
   ]);
 
@@ -84,7 +97,7 @@ const MainPage = () => {
           </div>
         </div>
 
-        <div className={style.fullProfile}>
+        <Link to='/profile' className={style.fullProfile}>
           <div className={style.profile}>
             <img src={profileDP} alt="" />
           </div>
@@ -92,7 +105,7 @@ const MainPage = () => {
             <p className={style.name}>Sudhanshu</p>
             <p className={style.username}>@sudhanshu9199</p>
           </div>
-        </div>
+        </Link>
       </div>
 
       <div className={style.belowAllContainers}>
@@ -130,11 +143,11 @@ const MainPage = () => {
 
         <div className={style.tasksListDisplay}>
           {tasks.map((task) => (
-            <div key={task.id} className={style.taskNote}>
+            <div key={task.id} className={`${style.taskNote} ${style[task.status]}`}>
               <div className={style.leftText}>
                 <p>{task.title}</p>
                 <p>{task.desc}</p>
-                <p className={style.priority}>
+                <p className={`${style.priority} ${style[task.status]}`}>
                   {task.status === "high" ? "Hight Priority" : task.status}
                 </p>
               </div>
