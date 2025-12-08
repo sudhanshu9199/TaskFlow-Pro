@@ -1,9 +1,17 @@
 const userModel = require("../models/userModel.js");
-const jwt = require('jsonwebtoken');
-const bcrypt = require('bcryptjs');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcryptjs");
+
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+};
 
 async function registerUser(req, res) {
-  const { name, username, password } = req.body;
+  try {
+    const { name, username, password } = req.body;
 
   const existingUser = await userModel.findOne({
     username,
@@ -23,45 +31,63 @@ async function registerUser(req, res) {
 
   const token = jwt.sign(
     {
-        id: user._id,
+      id: user._id,
     },
-    process.env.JWT_SECRET,
-  )
+    process.env.JWT_SECRET
+  );
 
-  res.cookie('AuthToken', token);
+  res.cookie("AuthToken", token, cookieOptions);
+
+  const safeUser = { _id: user._id, name: user.name, username: user.username };
 
   res.status(201).json({
     message: "user created successfully!",
-    user,
+    user: safeUser,
   });
+  }
+  catch (err) {
+    console.error('Register error:', err);
+    res.status(500).json({
+      message: 'Server error'
+    });
+  }
 }
 
 async function loginUser(req, res) {
+  try {
     const { username, password } = req.body;
 
-    const user = await userModel.findOne({
-        username,
+  const user = await userModel.findOne({
+    username,
+  });
+
+  if (!user) {
+    return res.status(404).json({
+      message: "user not found",
     });
+  }
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+  if (!isPasswordValid) {
+    return res.status(401).json({
+      message: "invalid credentials",
+    });
+  }
 
-    if (!user) {
-        return res.status(404).json({
-            message: "user not found",
-        });
-    }
-    const isPasswordValid = await bcrypt.compare(password, user.password);
-    if (!isPasswordValid) {
-        return res.status(401).json({
-            message: "invalid credentials",
-        });
-    }
+  const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
+  res.cookie("AuthToken", token, cookieOptions);
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET);
-    res.cookie('AuthToken', token);
+  const safeUser = { _id: user._id, name: user.name, username: user.username };
 
-    res.status(200).json({
-        message: "login successful",
-        user,
+  res.status(200).json({
+    message: "login successful",
+    user: safeUser,
+  });
+  } catch (error) {
+    console.error('Login error:', err);
+    res.status(500).json({
+      message: 'Server error'
     })
+  }
 }
 
 module.exports = { registerUser, loginUser };

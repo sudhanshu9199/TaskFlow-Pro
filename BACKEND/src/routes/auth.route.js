@@ -1,5 +1,5 @@
 const express = require('express');
-const userModel = require('../models/userModel.js');
+const authMiddleware = require('../middleware/auth.middleware.js')
 const { registerUser, loginUser } = require('../controller/auth.controller.js');
 const router = express.Router();
 
@@ -9,5 +9,9 @@ router.post('/logout', (req, res) => {
     res.clearCookie('AuthToken');
     res.json({ message: 'Logged out successfully' });
 })
+
+router.get('/me', authMiddleware, (req, res) => {
+    res.status(200).json({ user: req.user });
+});
 
 module.exports = router;

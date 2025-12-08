@@ -64,7 +64,7 @@ const MainPage = () => {
         className={style.mobileCreateTaskBtn}
         onClick={() => setOpenCreate(true)}
       >
-        <Plus />
+        <Plus className={style.plusIcon}/>
       </p>
       <div className={style.header}>
         <h2>TaskFlow</h2>

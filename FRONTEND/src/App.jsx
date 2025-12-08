@@ -1,11 +1,11 @@
-import MainRouter from './pages/router/MainRouter'
+import MainRouter from "./router/MainRouter";
 
 const App = () => {
   return (
     <>
-    <MainRouter />
+      <MainRouter />
     </>
-  )
-}
+  );
+};
 
-export default App
+export default App;

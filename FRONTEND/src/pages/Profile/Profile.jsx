@@ -1,5 +1,5 @@
 import { ArrowLeft, LogOut } from "lucide-react";
-import style from './Profile.module.scss';
+import style from "./Profile.module.scss";
 
 const Profile = () => {
   return (
