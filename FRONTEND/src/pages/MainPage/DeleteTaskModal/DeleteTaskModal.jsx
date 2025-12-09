@@ -13,7 +13,7 @@ const DeleteTaskModal = ({ open, task, onCancel, onDelete }) => {
           <button className={style.cancelBtn} onClick={onCancel}>
             Cancel
           </button>
-          <button className={style.deleteBtn} onClick={() => onDelete(task.id)}>
+          <button className={style.deleteBtn} onClick={() => onDelete(task._id)}>
             Delete
           </button>
         </div>

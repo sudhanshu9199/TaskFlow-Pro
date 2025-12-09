@@ -19,7 +19,7 @@ const EditTaskModal = ({ open, onClose, task = {}, onUpdate }) => {
   const firstInputRef = useRef(null);
 
   useEffect(() => {
-    if (open & task) {
+    if (open && task) {
       settitle(task.title || "");
       setdesc(task.desc || "");
       setstatus(task.status || "todo");
@@ -47,10 +47,7 @@ const EditTaskModal = ({ open, onClose, task = {}, onUpdate }) => {
 
   const handleSubmit = async (e) => {
     e?.preventDefault();
-    if (!title.trim()) {
-      firstInputRef.current?.focus();
-      return;
-    }
+    if (!title.trim()) return;
     setsubmitting(true);
     try {
       // simulate API call or pass data to parent

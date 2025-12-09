@@ -9,13 +9,14 @@ import {
   Plus,
 } from "lucide-react";
 import profileDP from "../../assets/profileDP.jpg";
-import { Link } from 'react-router';
+import { Link } from "react-router";
 import useTasks from "../../Hooks/useTasks";
 import useModalControllers from "../../Hooks/useModalControllers";
 
 import CreateTaskModal from "./CreateTaskModal/CreateTaskModal";
 import EditTaskModal from "./EditTaskModal/EditTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal/DeleteTaskModal";
+import { useSelector } from "react-redux";
 
 const MainPage = () => {
   const {
@@ -31,32 +32,9 @@ const MainPage = () => {
     openDeleteModal,
   } = useModalControllers();
 
-  const [tasks, setTasks, updateTask, deleteTask] = useTasks([
-    {
-      id: "1",
-      title: "Website Redesign",
-      desc: "Finalize homepage mockup.",
-      status: "high",
-    },
-    {
-      id: "2",
-      title: "Write docs",
-      desc: "Complete API docs v1",
-      status: "completed",
-    },
-    {
-      id: "3",
-      title: "Day 8",
-      desc: "1. Complete the todo project. 2. Drink water. 3. Listen god songs. 4. Help to mother",
-      status: "pending",
-    },
-    {
-      id: "4",
-      title: "Day 7",
-      desc: "1. Project Dashboard UI almost done.",
-      status: "todo",
-    },
-  ]);
+  const { user } = useSelector((s) => s.auth);
+
+  const {tasks, createTask, updateTask, deleteTask} = useTasks();
 
   return (
     <div className={style.dashboardContainer}>
@@ -64,7 +42,7 @@ const MainPage = () => {
         className={style.mobileCreateTaskBtn}
         onClick={() => setOpenCreate(true)}
       >
-        <Plus className={style.plusIcon}/>
+        <Plus className={style.plusIcon} />
       </p>
       <div className={style.header}>
         <h2>TaskFlow</h2>
@@ -97,13 +75,13 @@ const MainPage = () => {
           </div>
         </div>
 
-        <Link to='/profile' className={style.fullProfile}>
+        <Link to="/profile" className={style.fullProfile}>
           <div className={style.profile}>
             <img src={profileDP} alt="" />
           </div>
           <div className={style.texts}>
-            <p className={style.name}>Sudhanshu</p>
-            <p className={style.username}>@sudhanshu9199</p>
+            <p className={style.name}>{user?.name || "User"}</p>
+            <p className={style.username}>@{user?.username || "username"}</p>
           </div>
         </Link>
       </div>
@@ -113,22 +91,28 @@ const MainPage = () => {
           <div className={style.allTasks}>
             <List className={`${style.icons} ${style.listIcon}`} />
             <p className={style.name}>Total Tasks</p>
-            <p className={style.number}>(24)</p>
+            <p className={style.number}>({tasks.length})</p>
           </div>
           <div className={style.allTasks}>
             <Check className={`${style.icons} ${style.checkIcon}`} />
             <p className={style.name}>Completed</p>
-            <p className={style.number}>(8)</p>
+            <p className={style.number}>
+              ({tasks.filter((t) => t.status === "completed").length})
+            </p>
           </div>
           <div className={style.allTasks}>
             <Clock className={`${style.icons} ${style.clockIcon}`} />
             <p className={style.name}>Pending</p>
-            <p className={style.number}>(12)</p>
+            <p className={style.number}>
+              ({tasks.filter((t) => t.status === "pending").length})
+            </p>
           </div>
           <div className={style.allTasks}>
             <Flame className={`${style.icons} ${style.flameIcon}`} />
             <p className={style.name}>High Priority</p>
-            <p className={style.number}>(4)</p>
+            <p className={style.number}>
+              ({tasks.filter((t) => t.status === "high").length})
+            </p>
           </div>
         </div>
 
@@ -143,7 +127,10 @@ const MainPage = () => {
 
         <div className={style.tasksListDisplay}>
           {tasks.map((task) => (
-            <div key={task.id} className={`${style.taskNote} ${style[task.status]}`}>
+            <div
+              key={task._id}
+              className={`${style.taskNote} ${style[task.status]}`}
+            >
               <div className={style.leftText}>
                 <p>{task.title}</p>
                 <p>{task.desc}</p>
@@ -171,24 +158,13 @@ const MainPage = () => {
               </div>
             </div>
           ))}
-          <div className={style.taskNote}>
-            <div className={style.leftText}>
-              <p>Website Redesign</p>
-              <p>Finalize homepage mockup.</p>
-              <p className={style.priority}>High Priority</p>
-            </div>
-            <div className={style.right}>
-              <SquarePen className={style.penIcon} />
-              <Trash2 className={style.trash} />
-            </div>
-          </div>
         </div>
       </div>
       <CreateTaskModal
         open={openCreate}
         onClose={() => setOpenCreate(false)}
         onCreate={(newTask) => {
-          setTasks(prev => [...prev, newTask]);
+          createTask(newTask);
           setOpenCreate(false);
         }}
       />
@@ -202,9 +178,9 @@ const MainPage = () => {
         open={openDelete}
         task={deletingTask}
         onCancel={() => setOpenDelete(false)}
-        onDelete={id => {
-            deleteTask(id);
-            setOpenDelete(false);
+        onDelete={(id) => {
+          deleteTask(id);
+          setOpenDelete(false);
         }}
       />
     </div>
