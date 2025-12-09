@@ -11,9 +11,10 @@ const ProtectedRoute = React.memo(({ children }) => {
         if (status === 'idle') dispatch(fetchCurrentUser());
     }, [status, dispatch]);
 
-    const isAuthenticated = useMemo(() => ! !user, [user]);
-    if (status === 'loading') {
-        return <div>Checking authentication...</div>;
+    const isAuthenticated = useMemo(() => !!user, [user]);
+
+    if (status === 'loading' || status === 'idle') {
+        return <div style={{ textAlign: "center", marginTop: "50px" }}>Loading...</div>
     }
 
     if (!isAuthenticated) {
