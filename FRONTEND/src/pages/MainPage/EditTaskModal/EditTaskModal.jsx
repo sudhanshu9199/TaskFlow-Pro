@@ -2,6 +2,7 @@ import style from "./EditTaskModal.module.scss";
 import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
 import { useEffect, useRef, useState } from "react";
+import { toast } from 'react-toastify';
 
 const STATUS_OPTIONS = [
   { value: "todo", label: "TODO", tokenClass: style.todoToken },
@@ -19,7 +20,7 @@ const EditTaskModal = ({ open, onClose, task = {}, onUpdate }) => {
   const firstInputRef = useRef(null);
 
   useEffect(() => {
-    if (open && task) {
+    if (open & task) {
       settitle(task.title || "");
       setdesc(task.desc || "");
       setstatus(task.status || "todo");
@@ -47,7 +48,10 @@ const EditTaskModal = ({ open, onClose, task = {}, onUpdate }) => {
 
   const handleSubmit = async (e) => {
     e?.preventDefault();
-    if (!title.trim()) return;
+    if (!title.trim()) {
+      firstInputRef.current?.focus();
+      return;
+    }
     setsubmitting(true);
     try {
       // simulate API call or pass data to parent
@@ -59,9 +63,11 @@ const EditTaskModal = ({ open, onClose, task = {}, onUpdate }) => {
       };
       await new Promise((r) => setTimeout(r, 350)); // simulate latency
       onUpdate && onUpdate(payload);
+      toast.success('Task updated successfully!🚀')
       onClose();
     } catch (err) {
       console.error("Update failed", err);
+      toast.error(err.message || "Something went wrong");
     } finally {
       setsubmitting(false);
     }

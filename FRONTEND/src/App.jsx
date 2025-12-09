@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import MainRouter from "./router/MainRouter";
 import { useEffect } from "react";
 import { clearUser, setUser } from "./Redux/Slice/authSlice";
+import { ToastContainer } from 'react-toastify';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -28,6 +29,7 @@ const App = () => {
   return (
     <>
       <MainRouter />
+      <ToastContainer position="top-right" autoClose={3000} />
     </>
   );
 };

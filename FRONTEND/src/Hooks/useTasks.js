@@ -55,7 +55,7 @@ export default function useTasks() {
       if (res.ok) {
         const data = await res.json();
         setTasks((prev) =>
-          prev.map((t) => (t.id === data.updated._id ? data.updated : t))
+          prev.map((t) => (t._id === data.updated._id ? data.updated : t))
         );
       }
     } catch (err) {
@@ -79,5 +79,5 @@ export default function useTasks() {
     }
   };
 
-  return {tasks, loading, createTask, updateTask, deleteTask, refreshTasks: fetchTasks };
+  return {tasks, setTasks, loading, createTask, updateTask, deleteTask, refreshTasks: fetchTasks };
 }

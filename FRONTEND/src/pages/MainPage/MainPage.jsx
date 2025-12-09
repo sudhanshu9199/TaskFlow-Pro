@@ -12,12 +12,13 @@ import profileDP from "../../assets/profileDP.jpg";
 import { Link } from "react-router";
 import useTasks from "../../Hooks/useTasks";
 import useModalControllers from "../../Hooks/useModalControllers";
+import { toast } from 'react-toastify';
 
 import CreateTaskModal from "./CreateTaskModal/CreateTaskModal";
 import EditTaskModal from "./EditTaskModal/EditTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal/DeleteTaskModal";
 import { useSelector } from "react-redux";
-
+import { useEffect } from "react";
 const MainPage = () => {
   const {
     openCreate,
@@ -34,7 +35,7 @@ const MainPage = () => {
 
   const { user } = useSelector((s) => s.auth);
 
-  const {tasks, createTask, updateTask, deleteTask} = useTasks();
+  const {tasks, createTask, updateTask, deleteTask} = useTasks([]);
 
   return (
     <div className={style.dashboardContainer}>
