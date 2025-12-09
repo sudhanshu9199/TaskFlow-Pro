@@ -12,6 +12,9 @@
   font-size: 1.4rem;
   font-weight: 600;
 }
+.profileContainer .header .logoutContainer p {
+  display: none;
+}
 .profileContainer .profileSummary {
   display: flex;
   flex-direction: column;
@@ -32,4 +35,35 @@
 .profileContainer .profileSummary .username {
   font-size: 1rem;
   opacity: 0.9;
+}
+@media (min-width: 1024px) {
+  .profileContainer {
+    padding: 0.5rem 1.5rem;
+  }
+  .profileContainer .header {
+    padding: 0.3rem 1rem;
+  }
+  .profileContainer .header .backArrow {
+    width: 2rem;
+    height: 2rem;
+  }
+  .profileContainer .header p {
+    font-size: 2rem;
+  }
+  .profileContainer .header .logoutContainer {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgb(232, 13, 13);
+    color: white;
+    padding: 0.4rem 0.8rem;
+    cursor: default;
+  }
+  .profileContainer .header .logoutContainer:active {
+    transform: scale(0.9);
+  }
+  .profileContainer .header .logoutContainer p {
+    display: inline-block;
+    font-size: 0.95rem;
+  }
 }/*# sourceMappingURL=Profile.module.css.map */

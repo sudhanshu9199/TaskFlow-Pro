@@ -1,13 +1,30 @@
 import { ArrowLeft, LogOut } from "lucide-react";
 import style from "./Profile.module.scss";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { logoutUser } from "../../Redux/Slice/authSlice";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    await dispatch(logoutUser());
+    navigate("/login");
+  };
+
+  const handleBack = () => {
+    navigate(-1);
+  };
   return (
     <div className={style.profileContainer}>
       <div className={style.header}>
-        <ArrowLeft className={style.backArrow} />
+        <ArrowLeft className={style.backArrow} onClick={handleBack} />
         <p>TaskFlow</p>
-        <LogOut className={style.logout} />
+        <div className={style.logoutContainer} onClick={handleLogout}>
+          <p>Logout</p>
+          <LogOut className={style.logout} />
+        </div>
       </div>
       <div className={style.profileSummary}>
         <img src="" alt="" />

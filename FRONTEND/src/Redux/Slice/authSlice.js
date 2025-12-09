@@ -61,6 +61,23 @@ const register = createAsyncThunk(
   }
 );
 
+const logoutUser = createAsyncThunk(
+  "auth/logoutUser",
+  async (_, { rejectWithValue }) => {
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+      const data = await res.json();
+      if (!res.ok) return rejectWithValue(data);
+      return true;
+    } catch (err) {
+      return rejectWithValue({ message: "Network error" });
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -119,9 +136,13 @@ const authSlice = createSlice({
       .addCase(register.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload?.message || "Registration failed";
+      })
+      .addCase(logoutUser.fulfilled, (state) => {
+        state.user = null;
+        state.status = 'idle';
       });
   },
 });
 export const { logoutLocal, setUser, clearUser } = authSlice.actions;
-export { fetchCurrentUser, loginUser, register}
+export { fetchCurrentUser, loginUser, register, logoutUser };
 export default authSlice.reducer;
