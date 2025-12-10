@@ -41,7 +41,7 @@ const Profile = () => {
           <input type="text" className="username" placeholder="sudhanshu9199" />
         </div>
         <div className="passwords">
-          <label>Name</label>
+          <label>Password</label>
           <input type="text" className="password" placeholder="******" />
         </div>
         <button type="submit">Edit Profile</button>

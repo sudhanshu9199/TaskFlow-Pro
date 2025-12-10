@@ -18,7 +18,7 @@ import CreateTaskModal from "./CreateTaskModal/CreateTaskModal";
 import EditTaskModal from "./EditTaskModal/EditTaskModal";
 import DeleteTaskModal from "./DeleteTaskModal/DeleteTaskModal";
 import { useSelector } from "react-redux";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 const MainPage = () => {
   const {
     openCreate,
@@ -36,6 +36,13 @@ const MainPage = () => {
   const { user } = useSelector((s) => s.auth);
 
   const {tasks, createTask, updateTask, deleteTask} = useTasks([]);
+
+  const [filter, setfilter] = useState('all');
+
+  const filteredTasks = tasks.filter(task => {
+    if(filter === 'all') return true;
+    return task.status === filter;
+  })
 
   return (
     <div className={style.dashboardContainer}>
@@ -56,19 +63,19 @@ const MainPage = () => {
           </p>
           <div className={style.DeskTopFilters}>
             <ul>
-              <li>
+              <li onClick={() => setfilter("all")} style={{ background: filter === "all" ? "#e0f2fe" : "transparent" }}>
                 <List className={style.icons} />
                 <p>All Tasks</p>
               </li>
-              <li>
+              <li onClick={() => setfilter("completed")} style={{ background: filter === "completed" ? "#e0f2fe" : "transparent" }}>
                 <Check className={style.icons} />
                 <p>Completed</p>
               </li>
-              <li>
+              <li onClick={() => setfilter("pending")} style={{ background: filter === "pending" ? "#e0f2fe" : "transparent" }}>
                 <Clock className={style.icons} />
                 <p>Pending</p>
               </li>
-              <li>
+              <li onClick={() => setfilter("high")} style={{ background: filter === "high" ? "#e0f2fe" : "transparent" }}>
                 <Flame className={style.icons} />
                 <p>Hight Priority</p>
               </li>
@@ -119,15 +126,18 @@ const MainPage = () => {
 
         <div className={style.filters}>
           <ul>
-            <li>All</li>
-            <li>Completed</li>
-            <li>Pending</li>
-            <li>High Priority</li>
+            <li onClick={() => setfilter("all")} style={{ background: filter === "all" ? "#4b7a92" : "transparent", color: filter === "all" ? "white" : "inherit" }}>All</li>
+            <li onClick={() => setfilter("completed")} style={{ background: filter === "completed" ? "#4b7a92" : "transparent", color: filter === "completed" ? "white" : "inherit" }}>Completed</li>
+            <li onClick={() => setfilter("pending")} style={{ background: filter === "pending" ? "#4b7a92" : "transparent", color: filter === "pending" ? "white" : "inherit" }}>Pending</li>
+            <li onClick={() => setfilter("high")} style={{ background: filter === "high" ? "#4b7a92" : "transparent", color: filter === "high" ? "white" : "inherit" }}>High Priority</li>
           </ul>
         </div>
 
         <div className={style.tasksListDisplay}>
-          {tasks.map((task) => (
+          { filteredTasks.length === 0 ? (
+            <p style={{textAlign: "center", marginTop: "2rem", color: "gray"}}>No tasks found.</p>
+          ) : (
+            filteredTasks.map((task) => (
             <div
               key={task._id}
               className={`${style.taskNote} ${style[task.status]}`}
@@ -158,7 +168,8 @@ const MainPage = () => {
                 </button>
               </div>
             </div>
-          ))}
+          ))
+          )}
         </div>
       </div>
       <CreateTaskModal
