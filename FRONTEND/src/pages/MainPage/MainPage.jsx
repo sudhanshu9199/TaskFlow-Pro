@@ -181,6 +181,7 @@ const MainPage = () => {
         onCancel={() => setOpenDelete(false)}
         onDelete={(id) => {
           deleteTask(id);
+          toast.success('Task Deleted! 🗑️');
           setOpenDelete(false);
         }}
       />

@@ -67,7 +67,7 @@ const EditTaskModal = ({ open, onClose, task = {}, onUpdate }) => {
       onClose();
     } catch (err) {
       console.error("Update failed", err);
-      toast.error(err.message || "Something went wrong");
+      toast.error(err.message || "Failed to update task.");
     } finally {
       setsubmitting(false);
     }

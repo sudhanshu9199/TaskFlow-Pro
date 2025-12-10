@@ -1,20 +1,36 @@
 import { X } from "lucide-react";
 import style from "./CreateTaskModal.module.scss";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const CreateTaskModal = ({ open, onClose, onCreate }) => {
   const [title, setTitle] = useState("");
   const [desc, setDesc] = useState("");
   const [status, setStatus] = useState("todo");
-  if (!open) return null;
 
   const handleCreate = () => {
-    if (!title.trim() || !desc.trim()) return alert("Please fill all fields");
-    onCreate({ title, desc, status });
+    if (!title.trim()) {
+      return toast.error("Title is required!");
+    }
+
+    const newTask = {
+      id: Date.now().toString(), // Temporary ID for local testing
+      title,
+      desc,
+      status,
+    };
+
+    onCreate(newTask);
+    toast.success("Task Created Successfully! 🎉"); // Notification
+
+    // Reset form
     setTitle("");
     setDesc("");
     setStatus("todo");
+    onClose();
   };
+
+  if (!open) return null;
   return (
     <div className={style.overlay}>
       <div className={style.modal}>
