@@ -87,7 +87,7 @@ const Profile = () => {
         <p className={style.username}>@{user?.username}</p>
       </div>
       <form onSubmit={handleSubmit}>
-        <div className="names">
+        <div className={style.names}>
           <label>Name</label>
           <input
             type="text"
@@ -96,7 +96,7 @@ const Profile = () => {
             onChange={(e) => setForm({ ...form, name: e.target.value })}
           />
         </div>
-        <div className="usernames">
+        <div className={style.usernames}>
           <label>Username</label>
           <input
             type="text"
@@ -107,7 +107,7 @@ const Profile = () => {
             style={{ opacity: 0.7, cursor: "not-allowed" }}
           />
         </div>
-        <div className="passwords">
+        <div className={style.passwords}>
           <label>New Password</label>
           <input
             type="text"
@@ -117,8 +117,8 @@ const Profile = () => {
             onChange={e => setForm({ ...form, password: e.target.value })}
           />
         </div>
-        <button type="submit">Edit Profile</button>
-        <button type="button" onClick={handleDelete}>
+        <button type="submit" className={style.editProfileBtn}>Edit Profile</button>
+        <button type="button" onClick={handleDelete} className={style.deleteUserBtn}>
           <Trash2 size={18} style={{ marginRight: "8px", verticalAlign: "middle" }} />
           Delete Account</button>
       </form>
