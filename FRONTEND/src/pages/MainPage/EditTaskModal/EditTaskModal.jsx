@@ -20,7 +20,7 @@ const EditTaskModal = ({ open, onClose, task = {}, onUpdate }) => {
   const firstInputRef = useRef(null);
 
   useEffect(() => {
-    if (open & task) {
+    if (open && task) {
       settitle(task.title || "");
       setdesc(task.desc || "");
       setstatus(task.status || "todo");
