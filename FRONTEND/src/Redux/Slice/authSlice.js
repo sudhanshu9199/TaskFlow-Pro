@@ -78,6 +78,42 @@ const logoutUser = createAsyncThunk(
   }
 );
 
+const updateUser = createAsyncThunk(
+  "auth/updateUser",
+  async (formData, { rejectWithValue }) => {
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/update", {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        credentials: "include",
+        body: JSON.stringify(formData),
+      });
+      const data = await res.json();
+      if (!res.ok) return rejectWithValue(data);
+      return data.user;
+    } catch (err) {
+      return rejectWithValue({ message: "Network error" });
+    }
+  }
+);
+
+const deleteUserAccount = createAsyncThunk(
+  'auth/deleteUserAccount',
+  async(_, { rejectWithValue }) => {
+    try {
+      const res = await fetch('http://localhost:3000/api/auth/delete', {
+        method: 'DELETE',
+        credentials: 'include',
+      });
+      const data = await res.json();
+      if (!res.ok) return rejectWithValue(data);
+      return true;
+    } catch (err) {
+      return rejectWithValue({ message: 'Network error' });
+    }
+  }
+);
+
 const authSlice = createSlice({
   name: "auth",
   initialState: {
@@ -140,9 +176,17 @@ const authSlice = createSlice({
       .addCase(logoutUser.fulfilled, (state) => {
         state.user = null;
         state.status = 'idle';
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.user = action.payload;
+        state.status = 'succeeded';
+      })
+      .addCase(deleteUserAccount.fulfilled, (state) => {
+        state.user = null;
+        state.status = 'idle';
       });
   },
 });
 export const { logoutLocal, setUser, clearUser } = authSlice.actions;
-export { fetchCurrentUser, loginUser, register, logoutUser };
+export { fetchCurrentUser, loginUser, register, logoutUser, updateUser, deleteUserAccount };
 export default authSlice.reducer;
