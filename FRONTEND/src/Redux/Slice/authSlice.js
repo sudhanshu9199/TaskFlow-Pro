@@ -82,11 +82,12 @@ const updateUser = createAsyncThunk(
   "auth/updateUser",
   async (formData, { rejectWithValue }) => {
     try {
+      const isFormData = formData instanceof FormData;
       const res = await fetch("http://localhost:3000/api/auth/update", {
         method: "PUT",
-        headers: { "Content-Type": "application/json" },
+        headers: isFormData ? {} : { "Content-Type": "application/json" },
         credentials: "include",
-        body: JSON.stringify(formData),
+        body: isFormData ? formData : JSON.stringify(formData),
       });
       const data = await res.json();
       if (!res.ok) return rejectWithValue(data);

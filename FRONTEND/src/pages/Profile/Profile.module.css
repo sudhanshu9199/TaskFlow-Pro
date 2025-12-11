@@ -21,12 +21,32 @@
   align-items: center;
   margin: 1rem 0;
 }
-.profileContainer .profileSummary img {
+.profileContainer .profileSummary .DPContainer {
+  position: relative;
+}
+.profileContainer .profileSummary .DPContainer img {
   width: 7rem;
   height: 7rem;
   border: 2px solid red;
   border-radius: 50%;
   margin-bottom: 0.45rem;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+.profileContainer .profileSummary .DPContainer .clickableCamera {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  background: rgba(130, 180, 255, 0.682);
+  border-radius: 50%;
+  padding: 4px;
+  display: flex;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.profileContainer .profileSummary .imageInput {
+  display: none;
+  border: 2px solid red;
 }
 .profileContainer .profileSummary .name {
   font-weight: 600;
@@ -42,16 +62,22 @@
   flex-direction: column;
   align-items: center;
 }
-.profileContainer form .names, .profileContainer form .usernames, .profileContainer form .passwords {
+.profileContainer form .names,
+.profileContainer form .usernames,
+.profileContainer form .passwords {
   margin-bottom: 1rem;
   display: flex;
   flex-direction: column;
 }
-.profileContainer form .names label, .profileContainer form .usernames label, .profileContainer form .passwords label {
+.profileContainer form .names label,
+.profileContainer form .usernames label,
+.profileContainer form .passwords label {
   font-size: 1.1rem;
   margin-bottom: 0.3rem;
 }
-.profileContainer form .names input, .profileContainer form .usernames input, .profileContainer form .passwords input {
+.profileContainer form .names input,
+.profileContainer form .usernames input,
+.profileContainer form .passwords input {
   font-size: 1.4rem;
   padding: 0.5rem 0.8rem;
   border: none;
@@ -86,7 +112,7 @@
 @media (min-width: 1024px) {
   .profileContainer {
     padding: 0.5rem 1.5rem;
-    background: #E4F3FB;
+    background: #e4f3fb;
   }
   .profileContainer .header {
     padding: 0.3rem 1rem;
@@ -113,5 +139,13 @@
   .profileContainer .header .logoutContainer p {
     display: inline-block;
     font-size: 0.95rem;
+  }
+  .profileContainer .profileSummary .DPContainer img {
+    width: 10rem;
+    height: 10rem;
+  }
+  .profileContainer .profileSummary .DPContainer .clickableCamera {
+    bottom: 1rem;
+    right: 0.5rem;
   }
 }/*# sourceMappingURL=Profile.module.css.map */

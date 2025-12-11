@@ -1,6 +1,7 @@
 const userModel = require("../models/userModel.js");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
+const imagekit = require('../service/imagekit.js')
 
 const cookieOptions = {
   httpOnly: true,
@@ -104,6 +105,22 @@ async function updateUser(req, res) {
 
     if (name) updates.name = name;
     if (password) updates.password = await bcrypt.hash(password, 10);
+
+    if (req.file) {
+      try {
+        const uploadResponse = await imagekit.upload({
+          file: req.file.buffer,
+          fileName: `profile-${req.user._id}-${Date.now()}`,
+          folder: '/taskflow-profiles',
+        });
+        updates.profileImage = uploadResponse.url;
+      } catch (uploadError) {
+        console.error('ImageKit Upload Error:', uploadError);
+        return res.status(500).json({
+          message: 'Failed to upload image'
+        })
+      }
+    }
 
     const updatedUser = await userModel
       .findByIdAndUpdate(req.user._id, updates, { new: true })

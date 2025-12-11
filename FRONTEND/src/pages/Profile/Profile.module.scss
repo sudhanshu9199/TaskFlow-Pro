@@ -24,12 +24,33 @@
     flex-direction: column;
     align-items: center;
     margin: 1rem 0;
-    img {
-      width: 7rem;
-      height: 7rem;
+
+    .DPContainer {
+      position: relative;
+      img {
+        width: 7rem;
+        height: 7rem;
+        border: 2px solid red;
+        border-radius: 50%;
+        margin-bottom: 0.45rem;
+        object-fit: cover;
+      }
+      .clickableCamera {
+        position: absolute;
+        bottom: 5px;
+        right: 0;
+        background: rgba(130, 180, 255, 0.682);
+        border-radius: 50%;
+        padding: 4px;
+        display: flex;
+        border: 1px solid #ccc;
+      cursor: pointer;
+      }
+    }
+
+    .imageInput {
+      display: none;
       border: 2px solid red;
-      border-radius: 50%;
-      margin-bottom: 0.45rem;
     }
 
     .name {
@@ -48,7 +69,9 @@
     flex-direction: column;
     align-items: center;
 
-    .names, .usernames, .passwords {
+    .names,
+    .usernames,
+    .passwords {
       margin-bottom: 1rem;
       display: flex;
       flex-direction: column;
@@ -69,19 +92,19 @@
     .editProfileBtn {
       font-size: 1.45rem;
       margin: 1.3rem 0 0.8rem 0;
-      padding:  0.65rem 2rem;
+      padding: 0.65rem 2rem;
       border: none;
       background: rgb(10, 130, 229);
       color: whitesmoke;
 
       &:active {
-        transform: scale(0.90);
+        transform: scale(0.9);
       }
     }
     .deleteUserBtn {
       font-size: 1.45rem;
       margin: 1.3rem 0 0.8rem 0;
-      padding:  0.65rem 2rem;
+      padding: 0.65rem 2rem;
       border: none;
       background: rgb(229, 10, 10);
       color: whitesmoke;
@@ -89,7 +112,7 @@
       align-items: center;
 
       &:active {
-        transform: scale(0.90);
+        transform: scale(0.9);
       }
     }
   }
@@ -98,7 +121,7 @@
 @media (min-width: 1024px) {
   .profileContainer {
     padding: 0.5rem 1.5rem;
-    background: #E4F3FB;
+    background: #e4f3fb;
 
     .header {
       padding: 0.3rem 1rem;
@@ -121,11 +144,24 @@
         cursor: default;
 
         &:active {
-          transform: scale(0.90);
+          transform: scale(0.9);
         }
         p {
           display: inline-block;
           font-size: 0.95rem;
+        }
+      }
+    }
+
+    .profileSummary {
+      .DPContainer {
+        img {
+          width: 10rem;
+          height: 10rem;
+        }
+        .clickableCamera {
+          bottom: 1rem;
+        right: 0.5rem;
         }
       }
     }

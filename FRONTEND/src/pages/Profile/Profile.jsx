@@ -1,4 +1,4 @@
-import { ArrowLeft, LogOut, Trash2 } from "lucide-react";
+import { ArrowLeft, Camera, LogOut, Trash2 } from "lucide-react";
 import style from "./Profile.module.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router";
@@ -7,19 +7,24 @@ import {
   updateUser,
   deleteUserAccount,
 } from "../../Redux/Slice/authSlice";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { toast } from "react-toastify";
+import defaultDP from "../../assets/profileDP.jpg";
 
 const Profile = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((s) => s.auth);
+  const fileInputRef = useRef(null);
 
   const [form, setForm] = useState({
     name: "",
     username: "",
     password: "",
   });
+
+  const [previewImage, setpreviewImage] = useState(null);
+  const [selectedFile, setselectedFile] = useState(null);
 
   useEffect(() => {
     if (user) {
@@ -40,17 +45,39 @@ const Profile = () => {
     navigate(-1);
   };
 
+  const handleImageClick = () => {
+    fileInputRef.current.click();
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setselectedFile(file);
+      setpreviewImage(URL.createObjectURL(file));
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!form.name.trim()) return toast.error("Name is required");
 
     try {
-      const payload = { name: form.name };
-      if (form.password.trim()) payload.password = form.password;
+      let payload;
+
+      if (selectedFile) {
+        payload = new FormData();
+        payload.append("name", form.name);
+        if (form.password.trim()) payload.append("password", form.password);
+        payload.append("profileImage", selectedFile);
+      } else {
+        payload = { name: form.name };
+        if (form.password.trim()) payload.password = form.password;
+      }
 
       await dispatch(updateUser(payload)).unwrap();
       toast.success("Profile updated successfully! ✅");
       setForm((p) => ({ ...p, password: "" })); // Clear password field
+      setselectedFile(null);
     } catch (err) {
       toast.error("Failed to update profile.");
     }
@@ -71,6 +98,8 @@ const Profile = () => {
       }
     }
   };
+
+  const displayImage = previewImage || user?.profileImage || defaultDP;
   return (
     <div className={style.profileContainer}>
       <div className={style.header}>
@@ -82,7 +111,14 @@ const Profile = () => {
         </div>
       </div>
       <div className={style.profileSummary}>
-        <img src="" alt="" />
+        <div className={style.DPContainer}>
+          <img src={displayImage} alt="profile" />
+          <div className={style.clickableCamera} onClick={handleImageClick}>
+            <Camera className={style.cameraIcon} />
+          </div>
+        </div>
+
+        <input type="file" ref={fileInputRef} onChange={handleFileChange} accept="image/*" className={style.imageInput} />
         <p className={style.name}>{user?.name}</p>
         <p className={style.username}>@{user?.username}</p>
       </div>
@@ -114,13 +150,23 @@ const Profile = () => {
             className="password"
             placeholder="Change Password"
             value={form.password}
-            onChange={e => setForm({ ...form, password: e.target.value })}
+            onChange={(e) => setForm({ ...form, password: e.target.value })}
           />
         </div>
-        <button type="submit" className={style.editProfileBtn}>Edit Profile</button>
-        <button type="button" onClick={handleDelete} className={style.deleteUserBtn}>
-          <Trash2 size={18} style={{ marginRight: "8px", verticalAlign: "middle" }} />
-          Delete Account</button>
+        <button type="submit" className={style.editProfileBtn}>
+          Edit Profile
+        </button>
+        <button
+          type="button"
+          onClick={handleDelete}
+          className={style.deleteUserBtn}
+        >
+          <Trash2
+            size={18}
+            style={{ marginRight: "8px", verticalAlign: "middle" }}
+          />
+          Delete Account
+        </button>
       </form>
     </div>
   );
