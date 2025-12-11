@@ -85,7 +85,7 @@ const MainPage = () => {
 
         <Link to="/profile" className={style.fullProfile}>
           <div className={style.profile}>
-            <img src={profileDP} alt="" />
+            <img src={ user?.profileImage || profileDP } alt="profile" />
           </div>
           <div className={style.texts}>
             <p className={style.name}>{user?.name || "User"}</p>
