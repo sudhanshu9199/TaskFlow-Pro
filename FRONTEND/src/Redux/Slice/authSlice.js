@@ -4,7 +4,7 @@ const fetchCurrentUser = createAsyncThunk(
   "auth/fetchCurrentUser",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await fetch("http://localhost:3000/api/auth/me", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/me`, {
         method: "GET",
         credentials: "include",
       });
@@ -23,7 +23,7 @@ const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (credentials, { rejectWithValue }) => {
     try {
-      const res = await fetch("http://localhost:3000/api/auth/login", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -44,7 +44,7 @@ const register = createAsyncThunk(
   "auth/register",
   async (form, { rejectWithValue }) => {
     try {
-      const res = await fetch("http://localhost:3000/api/auth/register", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
@@ -65,7 +65,7 @@ const logoutUser = createAsyncThunk(
   "auth/logoutUser",
   async (_, { rejectWithValue }) => {
     try {
-      const res = await fetch("http://localhost:3000/api/auth/logout", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });
@@ -83,7 +83,7 @@ const updateUser = createAsyncThunk(
   async (formData, { rejectWithValue }) => {
     try {
       const isFormData = formData instanceof FormData;
-      const res = await fetch("http://localhost:3000/api/auth/update", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/update`, {
         method: "PUT",
         headers: isFormData ? {} : { "Content-Type": "application/json" },
         credentials: "include",
@@ -102,7 +102,7 @@ const deleteUserAccount = createAsyncThunk(
   'auth/deleteUserAccount',
   async(_, { rejectWithValue }) => {
     try {
-      const res = await fetch('http://localhost:3000/api/auth/delete', {
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/api/auth/delete`, {
         method: 'DELETE',
         credentials: 'include',
       });
